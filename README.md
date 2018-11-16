@@ -8,10 +8,10 @@ This project will allow the user to wirelessly connect a GameCube controller to 
 - Arduino Uno
 - GameCube controller
 - (Optional) Controller extension cable
-- [Bidirectional logic level converter](https://www.amazon.ca/gp/product/B0148BLZGE/)
 - HC-05/HC-06 Bluetooth module
 - FTDI serial adapter
-> **Note:** Many logic level converters **cannot** handle the small modulations we'll be dealing with. Purchase at your own expense.
+- Some elbow grease (a lot)
+> **Note:** If you are extremely worried about your GameCube controller, you can use a logic level converter, how many converters **cannot** handle the small modulations we'll be dealing with. The logic level converter is NOT necessary, but will lower the voltage down to the proper frequency. We weren't able to get one that was fast enough.
 
 ### Libraries:
 
@@ -34,7 +34,7 @@ To start, you will need to install the [Arduino Nintendo Library](https://github
 Start by cutting the end off of your GameCube controller/extension cable. Proceed to strip the main cable, then the individual 6 or 7 wires. Solder the ends of the wires to your own cables, shrink-tube or otherwise insulate them, then plug them into individual lanes on your breadboard. If you're using an original controller, your pin-out should look like this:
 
 |Colour|Function     |
-|------:|:------------|
+|-----:|:------------|
 |Yellow|5V           |
 |White |Data         |
 |Red   |Ground       |
@@ -45,7 +45,7 @@ Start by cutting the end off of your GameCube controller/extension cable. Procee
 
 Otherwise, you can reference NicoHood's table [here](https://docs.google.com/spreadsheets/d/1X-F21F838uQRCuYsc7nQoAv6I2dchvXtBSNTf-ZOc9M/), or you can look at the severed end of the controller, and try to guess which wire is which in regards to this diagram:
 
-[Insert picture]
+![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/connections.png "Female port on GameCube")
 
 Once you have the wires connected to your breadboard, recreate the following diagram:
 
@@ -53,11 +53,11 @@ Once you have the wires connected to your breadboard, recreate the following dia
 
 Once you have completed this step, you've finished the circuit!
 
-> **Note:** If you're getting a repeated *"Controller not found"* error in the monitor, use a multi-meter to test the voltage of the data line before and after the logic level converter, while pressing and not pressing buttons on the controller. The meter should register the presses as a super small, yet consistent drop in voltage. If this small drop doesn't make it through the converter, you may need a better logic level converter.
+> **Note:** If you're getting a repeated *"Controller not found"* error in the monitor, go back and make sure you have your controller wired up properly. Reference the image above. It is the FEMALE end (on the GameCube), so wire accordingly.
 
 ## Software
 
-All you have to do is download and extract the repository, and run the **"[name of main file]"** file inside the **/src/** folder. This will initialize the HID device, and you should be able to connect to the Arduino just like a regular Bluetooth controller. The controller is set to create preset outputs for each button, so you might have to some ingame rebinding. Otherwise, you should be able to modify **"[name of file]"** to have different bindings.
+All you have to do is download and extract the repository, and run the **"[name of main file]"** file inside the **/src/** folder. This will initialize the HID device, and you should be able to connect to the Arduino just like a regular Bluetooth controller. The controller input is preset, so all rebinding will have to be done ingame, but it should match the controls of a regular gamepad.
 
 ## Team
 
@@ -66,5 +66,5 @@ All you have to do is download and extract the repository, and run the **"[name 
 
 ## Credits
 
-- [NicoHood](https://github.com/NicoHood/) - GameCube API *and* hardware instructions for the controller
+- [NicoHood](https://github.com/NicoHood/) - GameCube API *and* hardware instructions for the controller, as well as LOTS of help getting a working prototype.
 - Mitxela.com - Instructions on creating a Bluetooth HID device with a HC-05
