@@ -37,7 +37,7 @@ After you have finished wiring up your controller, it's time to configure the HC
   
 Once you have completed this, you should have a perfectly function Bluetooth device. Open up your phone or another Bluetooth enabled device, and you should see the name you chose come up as an available device.
 
-> **Note:** If you are having trouble flashing the chip, reference (this)[https://youtu.be/y8PcNbAA6AQ?t=625] or (this)[https://youtu.be/mt8uF9IblUU?t=77]. Play with the baud rates in the program and in the monitor (some chips act differently), and try swapping the RX and TX wires. Lastly, sometimes you need to unplug the Arduino entirely.
+> **Note:** If you are having trouble flashing the chip, reference [this](https://youtu.be/y8PcNbAA6AQ?t=625) or [this](https://youtu.be/mt8uF9IblUU?t=77). Play with the baud rates in the program and in the monitor (some chips act differently), and try swapping the RX and TX wires. Lastly, sometimes you need to unplug the Arduino entirely.
 
 #### Controller Preparation
 > **Note:** Most of the following instructions are taken from [here](https://github.com/NicoHood/Nintendo/wiki/Gamecube). Reference them if you're having issues.
