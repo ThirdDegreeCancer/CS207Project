@@ -26,7 +26,18 @@ To start, you will need to install the [Arduino Nintendo Library](https://github
 #### Bluetooth Preparation
 > **Note:** Most of the following instructions are taken from [here](https://mitxela.com/projects/bluetooth_hid_gamepad). Reference them if you're having issues.
 
-[Instructions for Bluetooth flashing and stuff]
+The first thing you're going to need to do is flash the HC-05 chip that you have with firmware from an RN42. This will allow the HC-05 to act like a traditional HID device. In order to do this, follow the detailed instructions in [this](https://www.youtube.com/watch?v=y8PcNbAA6AQ). (There are lots of steps, so it's easier just to follow the video)
+
+After you have finished wiring up your controller, it's time to configure the HC-05. Unplug the FTDI adapter, and wire up your RX and TX wires to the pin 2 and 3 on your Arduino. Then, download and run [this](https://github.com/evankale/RN42Config/blob/master/RN42Config.ino), open the Serial Monitor, make sure the baud rate is set correctly, set line ending to "No line ending", then type in '$$$' and press enter. Then, set line return to "Newline", then type and enter the following:
+- SF,1
+- S~,6
+- SN,[the name you want your device to be]
+- SH,0230
+- R,1
+  
+Once you have completed this, you should have a perfectly function Bluetooth device. Open up your phone or another Bluetooth enabled device, and you should see the name you chose come up as an available device.
+
+> **Note:** If you are having trouble flashing the chip, reference (this)[https://youtu.be/y8PcNbAA6AQ?t=625] or (this)[https://youtu.be/mt8uF9IblUU?t=77]. Play with the baud rates in the program and in the monitor (some chips act differently), and try swapping the RX and TX wires. Lastly, sometimes you need to unplug the Arduino entirely.
 
 #### Controller Preparation
 > **Note:** Most of the following instructions are taken from [here](https://github.com/NicoHood/Nintendo/wiki/Gamecube). Reference them if you're having issues.
@@ -57,8 +68,9 @@ Once you have completed this step, you've finished the circuit!
 
 ## Software
 
-All you have to do is download and extract the repository, and run the **"[name of main file]"** file inside the **/src/** folder. This will initialize the HID device, and you should be able to connect to the Arduino just like a regular Bluetooth controller. The controller input is preset, so all rebinding will have to be done ingame, but it should match the controls of a regular gamepad.
+All you have to do is download and extract the repository, and run the **"[name of main file]"** file inside the **/src/** folder. **MAKE SURE you temporarily unplug the RX and TX pins**, or else you will be unable to upload the sketch. Now, just connect to the controller. The controller input is configurable in the sketch, but it should match the controls of a regular gamepad. (Many buttons cannot be bound yet. We will do some research and see if it is possible to make the buttons work)
 
+> **Note:** If you aren't getting any input from the controller, try disconnecting and reconnecting to the device, or even unplugging the Arduino.
 ## Team
 
 - Cole Crouter
@@ -67,4 +79,6 @@ All you have to do is download and extract the repository, and run the **"[name 
 ## Credits
 
 - [NicoHood](https://github.com/NicoHood/) - GameCube API *and* hardware instructions for the controller, as well as LOTS of help getting a working prototype.
-- Mitxela.com - Instructions on creating a Bluetooth HID device with a HC-05
+- [Mitxela.com](https://mitxela.com/projects/bluetooth_hid_gamepad) - Instructions on creating a Bluetooth HID device with a HC-05
+- [Evan Kale](https://github.com/evankale) - Instructions and software for flashing and using the HC-05 chip
+- [Brian Lough](https://www.youtube.com/channel/UCezJOfu7OtqGzd5xrP3q6WA) - Even more instructions on flashing the HC-05
