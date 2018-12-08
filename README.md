@@ -1,5 +1,7 @@
 # GameCube Controller Bluetooth Adapter for Arduino
 
+![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/thumbnail.jpg "")
+
 This project will allow the user to wirelessly connect a GameCube controller to the device of their choosing, as a regular HID Bluetooth device.
 
 ## Prerequisites
@@ -28,14 +30,7 @@ To start, you will need to install the [Arduino Nintendo Library](https://github
 
 The first thing you're going to need to do is flash the HC-05 chip that you have with firmware from an RN42. This will allow the HC-05 to act like a traditional HID device. In order to do this, follow the detailed instructions in [this](https://www.youtube.com/watch?v=y8PcNbAA6AQ). (There are lots of steps, so it's easier just to follow the video)
 
-After you have finished wiring up your controller, it's time to configure the HC-05. Unplug the FTDI adapter, and wire up your RX and TX wires to the pin 2 and 3 on your Arduino. Then, download and run [this](https://github.com/evankale/RN42Config/blob/master/RN42Config.ino), open the Serial Monitor, make sure the baud rate is set correctly, set line ending to "No line ending", then type in '$$$' and press enter. Then, set line return to "Newline", then type and enter the following:
-- SF,1
-- S~,6
-- SN,[the name you want your device to be]
-- SH,0230
-- R,1
-  
-Once you have completed this, you should have a perfectly function Bluetooth device. Open up your phone or another Bluetooth enabled device, and you should see the name you chose come up as an available device.
+![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/flashing.jpg "This is what our flashing setup looked like")
 
 > **Note:** If you are having trouble flashing the chip, reference [this](https://youtu.be/y8PcNbAA6AQ?t=625) or [this](https://youtu.be/mt8uF9IblUU?t=77). Play with the baud rates in the program and in the monitor (some chips act differently), and try swapping the RX and TX wires. Lastly, sometimes you need to unplug the Arduino entirely.
 
@@ -67,8 +62,19 @@ Once you have completed this step, you've finished the circuit!
 > **Note:** If you're getting a repeated *"Controller not found"* error in the monitor, go back and make sure you have your controller wired up properly. Reference the image above. It is the FEMALE end (on the GameCube), so wire accordingly.
 
 ## Software
+After you have finished wiring up your controller, it's time to configure the HC-05. Unplug the FTDI adapter, and wire up your RX and TX wires to the pin 2 and 3 on your Arduino. Then, download and run [this](https://github.com/evankale/RN42Config/blob/master/RN42Config.ino), open the Serial Monitor, make sure the baud rate is set correctly, set line ending to "No line ending", then type in '$$$' and press enter. Then, set line return to "Newline", then type and enter the following:
+- SF,1
+- S~,6
+- SN,[the name you want your device to be]
+- SH,0230
+- R,1
+  
+Once you have completed this, you should have a perfectly function Bluetooth device. Open up your phone or another Bluetooth enabled device, and you should see the name you chose come up as an available device.
 
-All you have to do is download and extract the repository, and run the **"[name of main file]"** file inside the **/src/** folder. **MAKE SURE you temporarily unplug the RX and TX pins**, or else you will be unable to upload the sketch. Now, just connect to the controller. The controller input is configurable in the sketch, but it should match the controls of a regular gamepad. (Many buttons cannot be bound yet. We will do some research and see if it is possible to make the buttons work)
+To run our sketch, all you have to do is download and run the **"[name of main file]"** file from this repository. **MAKE SURE you temporarily unplug the RX and TX pins while uploading the sketch**. Now, just connect your controller.
+
+#### Configuring
+Every device has a different configuration for Bluetooth HID. In the future, we may include some pre-existing profiles to choose from. Right now, it is configured to run on Android. The way the controller sends data is configurable from inside the sketch (under the sections labeled "edit this"). (Many buttons cannot be bound yet. We will do some research and see if it is possible to make the buttons work).
 
 > **Note:** If you aren't getting any input from the controller, try disconnecting and reconnecting to the device, or even unplugging the Arduino.
 ## Team
