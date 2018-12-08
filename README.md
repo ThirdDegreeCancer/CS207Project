@@ -1,4 +1,4 @@
-# GameCube Controller Bluetooth Adapter for Arduino
+# GameCube Controller Bluetooth Adapter for Arduino [1.0]
 
 ![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/thumbnail.jpg "")
 
