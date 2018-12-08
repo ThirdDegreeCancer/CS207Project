@@ -32,7 +32,8 @@ void loop()
     btnState = buttonDataByte(report);
     x1 = (report.xAxis - 128) * 1.1;
     y1 = -(report.yAxis - 128) * 1.1;
-
+  
+    // Deadzone, for if your controller doesn't center properly
     if (-ANALOG_DEADZONE <= x1 && x1 <= ANALOG_DEADZONE)
       x1 = 0;
     if (-ANALOG_DEADZONE <= y1 && y1 <= ANALOG_DEADZONE)
@@ -42,6 +43,7 @@ void loop()
     if (-ANALOG_DEADZONE <= y2 && y2 <= ANALOG_DEADZONE)
       y2 = 0;
     
+    // Only send update if buttons have changed
     if (lastBtnState != btnState
       || lastX1 != x1 || lastY1 != y1
       || lastX2 != x2 || lastY2 != y2)
@@ -69,6 +71,8 @@ void loop()
 //            Edit this part for payload             //
 //                                                   //
 //---------------------------------------------------//
+
+// Write out the controller state in a way the Bluetooth chip can send
 void sendGamepadState(uint32_t btnState, int8_t x1, int8_t y1, int8_t x2, int8_t y2)
 {
   // First byte, needs to be this
@@ -97,6 +101,7 @@ void sendGamepadState(uint32_t btnState, int8_t x1, int8_t y1, int8_t x2, int8_t
 //                                                   //
 //---------------------------------------------------//
 
+// This function defines what data to send based on the report from the controller (r is the report object, more information at the bottom)
 uint32_t buttonDataByte(Gamecube_Report_t r) {
   uint32_t btn = 0x0000;
   // Not sure
@@ -169,3 +174,46 @@ uint32_t buttonDataByte(Gamecube_Report_t r) {
   }
   return btn;
 }
+
+//---------------------------------------------------//
+//                                                   //
+//                 Gamecube_Report_t                 //
+//                                                   //
+//---------------------------------------------------//
+
+/*
+struct {
+// 1 or 0, indicates if the corresponding button is pressed
+    uint8_t a : 1;
+    uint8_t b : 1;
+    uint8_t x : 1;
+    uint8_t y : 1;
+    uint8_t start : 1;
+
+// IDK what these ones do, just ignore them
+    uint8_t origin : 1;
+    uint8_t errlatch : 1;
+    uint8_t errstat : 1;
+
+// 1 or 0, indicates if the corresponding button is pressed
+    uint8_t dleft : 1;
+    uint8_t dright : 1;
+    uint8_t ddown : 1;
+    uint8_t dup : 1;
+    uint8_t z : 1;
+    uint8_t r : 1;
+    uint8_t l : 1;
+    uint8_t high1 : 1; // IDK what this one is
+
+ // Joystick directions, goes from 16 to 238, 126-128 at rest
+    uint8_t xAxis;
+    uint8_t yAxis;
+    uint8_t cxAxis;
+    uint8_t cyAxis;
+
+// These ones are the same as uint8_t r and  uint8_t l (triggers), except in analog form, from 0 to 255
+    uint8_t left;
+    uint8_t right;
+};
+
+*/
