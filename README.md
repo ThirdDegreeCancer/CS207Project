@@ -53,9 +53,9 @@ Otherwise, you can reference NicoHood's table [here](https://docs.google.com/spr
 
 ![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/connections.png "Female port on GameCube")
 
-Once you have the wires connected to your breadboard, recreate the following diagram:
+Once you have the wires connected the controller wires to your breadboard, recreate the following diagram:
 
-[Insert picture]
+![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/gc_bb.png "")
 
 Once you have completed this step, you've finished the circuit!
 
