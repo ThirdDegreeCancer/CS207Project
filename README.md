@@ -13,7 +13,9 @@ This project will allow the user to wirelessly connect a GameCube controller to 
 - HC-05/HC-06 Bluetooth module
 - FTDI serial adapter
 - Cable for serial adapter
+- 1 x 220 Ohm resistor
 - Some elbow grease (a lot)
+
 > **Note:** If you're *extremely* worried about your GameCube controller, you can use a logic level converter, however most logic level converters **cannot** handle the small modulations we'll be dealing with. The logic level converter is NOT necessary, but will lower the voltage down to the proper level. We weren't able to get one that was fast enough.
 
 ### Libraries:
