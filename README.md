@@ -1,6 +1,6 @@
 # GameCube Controller Bluetooth Adapter for Arduino [1.0]
 
-![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/thumbnail.jpg "")
+![alt text](https://github.com/ThirdDegreeCancer/CS207Project/blob/intro/img/thumbnail.jpg "#NoFilter")
 
 This project will allow the user to wirelessly connect a GameCube controller to the device of their choosing, as a regular HID Bluetooth device.
 
