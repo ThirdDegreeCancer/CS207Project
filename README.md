@@ -72,7 +72,7 @@ After you have finished wiring up your controller, it's time to configure the HC
   
 Once you have completed this, you should have a perfectly function Bluetooth device. Open up your phone or another Bluetooth enabled device, and you should see the name you chose come up as an available device.
 
-To run our sketch, all you have to do is download and run the **"[name of main file]"** file from this repository. **MAKE SURE you temporarily unplug the RX and TX pins while uploading the sketch**. Now, just connect your controller.
+To run our sketch, all you have to do is download and run the **"GameCubeBluetooth.ino"** file from this repository. **MAKE SURE you temporarily unplug the RX and TX pins while uploading the sketch**. Now, just connect your controller.
 
 #### Configuring
 Every device has a different configuration for Bluetooth HID. In the future, we may include some pre-existing profiles to choose from. Right now, it is configured to run on Android. The way the controller sends data is configurable from inside the sketch (under the sections labeled "edit this"). (Many buttons cannot be bound yet. We will do some research and see if it is possible to make the buttons work).
