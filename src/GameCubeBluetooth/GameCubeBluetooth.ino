@@ -1,55 +1,65 @@
 #include "Nintendo.h"
 
-// Define a Gamecube Controller
+// Define a GameCube controller object
 CGamecubeController GamecubeController(7);
 
+// Keep track of  old button states, so we can detect changes
 uint32_t lastBtnState = 0;
 int8_t lastX1 = 0;
 int8_t lastY1 = 0;
 int8_t lastX2 = 0;
 int8_t lastY2 = 0;
 
+// Set up current button states
 uint32_t btnState = 0;
 int8_t x1 = 0;
 int8_t y1 = 0;
 int8_t x2 = 0;
 int8_t y2 = 0;
 
+// Deadzone amount, our GC controllers didn't seem to have any variance, but we put some anyways
 #define ANALOG_DEADZONE 32
 
-void setup()
-{
+void setup() {
   Serial.begin(9600);
 }
 
-void loop()
-{
+void loop() {
   // Try to read the controller data
-  if (GamecubeController.read())
-  {
+  if (GamecubeController.read()) {
+    // Get status and report from controller
     auto status = GamecubeController.getStatus();
     auto report = GamecubeController.getReport();
     btnState = buttonDataByte(report);
+    
+    // Convert analog stick axes to how Bluetooth HID expects it.
+    // NOTE: Overflowing the value will make it wrap around to negative whatever (aka you will go opposite direction)
     x1 = (report.xAxis - 128) * 1.1;
     y1 = -(report.yAxis - 128) * 1.1;
   
     // Deadzone, for if your controller doesn't center properly
-    if (-ANALOG_DEADZONE <= x1 && x1 <= ANALOG_DEADZONE)
+    if (-ANALOG_DEADZONE <= x1 && x1 <= ANALOG_DEADZONE) {
       x1 = 0;
-    if (-ANALOG_DEADZONE <= y1 && y1 <= ANALOG_DEADZONE)
+    }
+    if (-ANALOG_DEADZONE <= y1 && y1 <= ANALOG_DEADZONE) {
       y1 = 0;
-    if (-ANALOG_DEADZONE <= x2 && x2 <= ANALOG_DEADZONE)
+    }
+    if (-ANALOG_DEADZONE <= x2 && x2 <= ANALOG_DEADZONE) {
       x2 = 0;
-    if (-ANALOG_DEADZONE <= y2 && y2 <= ANALOG_DEADZONE)
+    }
+    if (-ANALOG_DEADZONE <= y2 && y2 <= ANALOG_DEADZONE) {
       y2 = 0;
+    }
     
     // Only send update if buttons have changed
     if (lastBtnState != btnState
       || lastX1 != x1 || lastY1 != y1
-      || lastX2 != x2 || lastY2 != y2)
-    {
+      || lastX2 != x2 || lastY2 != y2) {
+      
+      // Finally, send infoi to HC-0X chip
       sendGamepadState(btnState, x1, y1, x2, y2);
-
+  
+      // Track changes for next time
       lastBtnState = btnState;
       lastX1 = x1;
       lastY1 = y1;
@@ -57,10 +67,8 @@ void loop()
       lastY2 = y2;
     }
     delay(16);
-  }
-  else
-  {
-    // Add debounce if reading failed
+  } else {
+    // Error message if unable to get controller report
     Serial.println(F("Error reading Gamecube controller."));
     delay(1000);
   }
@@ -72,9 +80,13 @@ void loop()
 //                                                   //
 //---------------------------------------------------//
 
+/*
+This payload will most likely need to be reconfigured to work on different devices.
+If the current setup doesn't work, try moving the button states BEFORE the joysticks
+*/
+
 // Write out the controller state in a way the Bluetooth chip can send
-void sendGamepadState(uint32_t btnState, int8_t x1, int8_t y1, int8_t x2, int8_t y2)
-{
+void sendGamepadState(uint32_t btnState, int8_t x1, int8_t y1, int8_t x2, int8_t y2) {
   // First byte, needs to be this
   Serial.write((uint8_t)0xFD);
   // Second byte, size of payload
